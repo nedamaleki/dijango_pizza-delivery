@@ -7,7 +7,42 @@
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form> -->
-  <a class="btn btn-danger" href="{% url 'adminloginpage' %}"> logout </a>
+  <a class="btn btn-danger" href="{% url 'adminlogout' %}"> logout </a>
 </nav>
+
+<form method="POST" action="/addpizza/"> 
+	<div class="container" style="width:530px; display:block; margin:auto; margin-top: 50px">
+		{% csrf_token %}
+		<input type="text" placeholder="name" name="pizza" class="form-control" style="width:200px; display:inline; margin:auto">
+		<input type="text" placeholder="price" name="price" class="form-control" style="width:200px; display:inline; margin:auto">
+		<input type="submit" name="" value="add" class="btn btn-success" style="display:inline">
+	</div>
+</form>
+
+<div class="container" style="width:60%; display:block; margin:auto; margin-top: 80px; border:">
+	<table style="width:40%; display:block; margin:auto; padding: 10px" class="table table-striped table-bordered table-hover" > 
+		<thead>
+			<tr>
+				<td scope="col"> # </td>
+				<td scope="col"> Pizza Name </td>
+				<td scope="col"> Price </td>
+				<td scope="col"> Delete </td>
+			</tr>
+		</thead>
+		<tbody>
+		{% if pizzas %}
+		{% for pizza in pizzas %}
+		
+			<tr> 
+				<td scope="row"> {{ forloop.counter }} </td>
+				<td scope="row"> {{pizza.name}} </td>
+				<td> ${{pizza.price}}  </td>
+				<td> <center><a href="{% url 'deletepizza' pizza.id %}"> Delete </a> </center> </td>
+			</tr>
+		{% endfor %}
+		{% endif %}
+		</tbody>
+	</table>
+</div>
 
 {% endblock %}
