@@ -9,13 +9,17 @@
   </form> -->
   <a class="btn btn-danger" href="{% url 'homepage' %}"> login </a>
 </nav>
+{% for message in messages %}
+<p style="text-align: center"> {{message}} </p>
+{% endfor %}
 <div class="container-fluid" style="position:relative; height: 900px; background-image: url('{% static "img/pizza.jpg" %}'); background-size: cover">
 	<div style="position:absolute; top:50px; right:20px; width:500px; height:350px; background-color:orange; padding:40px" class="container">
 		 <h1 style="text-align: center; color: white "> Sign Up!</h1>
-		 <form>
-		 	<input type="text" name="username" class="form-control" style="margin-bottom: 10px">
-		 	<input type="password" name="password" class="form-control" style="margin-bottom: 10px">
-		 	<input type="text" name="phone number" class="form-control" style="margin-bottom: 10px">
+		 <form method="POST" action="/signupuser/">
+		 	{% csrf_token %}
+		 	<input type="text" name="username" class="form-control" placeholder="username" style="margin-bottom: 10px">
+		 	<input type="password" name="password" class="form-control" placeholder="password" style="margin-bottom: 10px">
+		 	<input type="text" name="phoneno" class="form-control" placeholder="phoneno" style="margin-bottom: 10px">
 		 	<input type="submit" name="" class="btn btn-success" style="display:block; margin: auto; margin-top:20px">
 		 </form> 
 	</div> 

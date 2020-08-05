@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import PizzaModel
+from .models import PizzaModel, CustomerModel
+from django.contrib.auth.models import User
 
 def adminloginpageview(request):
 	return render(request,'adminloginpage.html',{})
@@ -48,3 +49,20 @@ def deletepizza(request, pizza_id):
 def homepageview(request):
 	context={}
 	return render (request, 'homepage.html', context)
+
+def signupuser(request):
+	username = request.POST['username']
+	password = request.POST['password']
+	phoneno = request.POST['phoneno']
+
+	# if username already exists 
+	if User.objects.filter(username=username).exists():
+		messages.add_message(request, messages.ERROR, "user already exists")
+		return redirect('homepage')
+		
+	#  if username does not exist already (everything is fine to do)
+	User.objects.create_user(username=username, password=password).save()
+	lastobject = len(User.objects.all())-1
+	CustomerModel(userid=User.objects.all()[int(lastobject)].id, phoneno=phoneno).save()
+	messages.add_message(request, messages.ERROR, "user successfully created")
+	return redirect('homepage')

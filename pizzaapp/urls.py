@@ -10,6 +10,7 @@ urlpatterns = [
 		path ('addpizza/', views.addpizza, name='addpizza'),
 		path ('deletepizza/<pizza_id>', views.deletepizza, name='deletepizza'),
 		path('', views.homepageview, name='homepage'),
+		path('signupuser/', views.signupuser, name='signupuser'),
 		
 		
 ]

@@ -13,3 +13,11 @@ class PizzaModel(models.Model):
 
 	def __str__(self):
 		return self.name +" | "+ self.price
+
+class CustomerModel(models.Model):
+	userid = models.CharField(max_length = 10)
+	phoneno = models.CharField(max_length = 10)
+
+	def __str__(self):
+		return self.userid +" | "+ self.phoneno
+		
