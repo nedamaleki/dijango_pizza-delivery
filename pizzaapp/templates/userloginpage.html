@@ -3,7 +3,7 @@
 {% block content%}
 	
 <div style="padding: 20px; width: 25%; background-color:#ef6e00; display:block; margin:auto; margin-top:200px"  >
-	<h3 style="color:white; text-align: center"> admin login </h1>
+	<h3 style="color:white; text-align: center"> user login </h1>
 	<form method="POST" action="/authenticateuser/"> 
 		{% csrf_token%}
 		<input type="text" name="username" style="margin-bottom: 15px" placeholder="username" class="form-control">

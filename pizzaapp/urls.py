@@ -11,6 +11,12 @@ urlpatterns = [
 		path ('deletepizza/<pizza_id>', views.deletepizza, name='deletepizza'),
 		path('', views.homepageview, name='homepage'),
 		path('signupuser/', views.signupuser, name='signupuser'),
+		path('userlogin/', views.userloginpageview, name='userloginpage'),
+		path ('authenticateuser/', views.authenticateuser, name=''),
+		path('userhomepage/', views.userhomepageview, name='userhomepage'),
+		path ('userlogout/', views.userlogout, name='userlogout'),
+
+
 		
 		
 ]

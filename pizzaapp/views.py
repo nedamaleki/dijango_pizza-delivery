@@ -66,3 +66,33 @@ def signupuser(request):
 	CustomerModel(userid=User.objects.all()[int(lastobject)].id, phoneno=phoneno).save()
 	messages.add_message(request, messages.ERROR, "user successfully created")
 	return redirect('homepage')
+
+def userloginpageview(request):
+	return render(request,'userloginpage.html',{})
+
+def authenticateuser (request):
+	username = request.POST['username']
+	password = request.POST['password']
+
+	user = authenticate(username = username, password = password)
+
+	# user exists
+	if user is not None:
+		login (request, user)
+		return redirect('userhomepage')
+
+
+	# user dose not exist
+	if user is None:
+		messages.add_message (request, messages.ERROR, "Invalid Credentials")
+		return redirect ('userloginpage')
+
+def userhomepageview(request):
+
+	username = request.user.username 
+	context = {'username':username}
+	return render (request, 'userhomepage.html', context)
+
+def userlogout(request):
+	logout(request)
+	return redirect('userloginpage')

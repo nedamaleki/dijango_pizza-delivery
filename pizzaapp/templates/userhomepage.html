@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% 	block content %}
+
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand">Welcome {{username}}</a>
+  <a class="btn btn-danger" href="{% url 'userlogout' %}"> logout </a>
+</nav>
+{% endblock %}
