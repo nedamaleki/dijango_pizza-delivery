@@ -6,4 +6,45 @@
   <a class="navbar-brand">Welcome {{username}}</a>
   <a class="btn btn-danger" href="{% url 'userlogout' %}"> logout </a>
 </nav>
+
+{% if messages %}
+	{% for message in messages %}
+		<p style="color: green; text-align: center"> {{message}} </p>	
+	{% endfor %}
+{% endif %}
+
+<form method="POST" action="/placeorder/">
+	{% csrf_token %}
+	<div class="container" style="width:600px; display: block; margin:auto; margin-top: 80px">
+		<table class="table table-striped table-bordered table-dark" style="width:100%" > 
+			<thead>
+				<tr>
+					<td scope="col"> # </td>
+					<td scope="col"> Pizza Name </td>
+					<td scope="col"> Price </td>
+					<td scope="col"> quantity </td>
+				</tr>
+			</thead>
+			<tbody>
+			{% if pizzas %}
+			{% for pizza in pizzas %}
+			
+				<tr> 
+					<td scope="row"> {{ forloop.counter }} </td>
+					<td scope="row"> {{pizza.name}} </td>
+					<td> ${{pizza.price}}  </td>
+					<td> <input type="number" name="{{pizza.id}}" style="width:60px"> </td>
+				</tr>
+			{% endfor %}
+			{% endif %}
+			</tbody>
+		</table>
+ 
+		<div class="container" style="width:590px; display:block; margin:auto; margin-top: 50px">
+			{% csrf_token %}
+			<input type="text" placeholder="address" style="width:390px; margin-top: 107px" name="address">
+			<input type="submit" style="float: right; margin-top: 100px" class="btn btn-outline-success" value="place order" name="order">
+		</div>
+	</div>
+</form>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import PizzaModel, CustomerModel
+from .models import PizzaModel, CustomerModel, OrderModel
 from django.contrib.auth.models import User
 
 def adminloginpageview(request):
@@ -90,9 +90,36 @@ def authenticateuser (request):
 def userhomepageview(request):
 
 	username = request.user.username 
-	context = {'username':username}
+	pizzas = PizzaModel.objects.all()
+	context = {'username':username, 'pizzas': pizzas}
 	return render (request, 'userhomepage.html', context)
 
 def userlogout(request):
 	logout(request)
 	return redirect('userloginpage')
+
+def placeorder(request):
+	username = request.user.username
+	address = request.POST['address']
+	phoneno = CustomerModel.objects.filter(userid=request.user.id)[0].phoneno
+	ordereditems = ""
+
+	for pizza in PizzaModel.objects.all():
+		pizzaid = pizza.id
+		name = pizza.name
+		price = pizza.price
+		quantity = request.POST.get (str(pizzaid), " ")
+		# quantity = request.POST['']
+
+		print(name)
+		print(price)
+		print(quantity)
+
+		if str(quantity)!="0" and str(quantity)!=" ":
+			ordereditems = ordereditems + "name: "+ name + " " + "price: "+ price + " " + "quantity:" + quantity+ "      "
+
+	print(ordereditems)
+
+	OrderModel(username=username, address=address, phoneno=phoneno, ordereditems=ordereditems).save()
+	messages.add_message(request, messages.ERROR, "Order successfully Placed")
+	return redirect('userhomepage')

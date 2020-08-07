@@ -15,6 +15,8 @@ urlpatterns = [
 		path ('authenticateuser/', views.authenticateuser, name=''),
 		path('userhomepage/', views.userhomepageview, name='userhomepage'),
 		path ('userlogout/', views.userlogout, name='userlogout'),
+		path ('placeorder/', views.placeorder, name='placeorder'),
+
 
 
 		
