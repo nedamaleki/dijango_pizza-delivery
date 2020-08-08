@@ -3,7 +3,7 @@ from . import views
 # from .views import adminloginpageview, adminhomepageview, authenticateadmin
 
 urlpatterns = [
-		path('admin/', views.adminloginpageview, name='adminloginpage'),
+		path('adminlogin/', views.adminloginpageview, name='adminloginpage'),
 		path ('authenticateadmin/', views.authenticateadmin, name=''),
 		path('adminhomepage/', views.adminhomepageview, name='adminhomepage'),
 		path ('adminlogout/', views.adminlogout, name='adminlogout'),
@@ -17,6 +17,12 @@ urlpatterns = [
 		path ('userlogout/', views.userlogout, name='userlogout'),
 		path ('placeorder/', views.placeorder, name='placeorder'),
 		path ('userorders/', views.userorders, name='userorders'),
+		path ('adminorders/', views.adminorders, name='adminorders'),
+		path ('acceptorder/<order_id>', views.acceptorder, name='acceptorder'),
+		path ('declineorder/<order_id>', views.declineorder, name='declineorder'),
+
+
+
 
 
 

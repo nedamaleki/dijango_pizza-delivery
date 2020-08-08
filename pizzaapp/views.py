@@ -75,6 +75,7 @@ def authenticateuser (request):
 	password = request.POST['password']
 
 	user = authenticate(username = username, password = password)
+	print(user)
 
 	# user exists
 	if user is not None:
@@ -133,3 +134,21 @@ def userorders(request):
 	orders=OrderModel.objects.filter(username=request.user.username)
 	context={'userorders': orders}
 	return render(request, 'userorders.html', context)
+
+def adminorders(request):
+	orders = OrderModel.objects.all()
+	context = {'adminorders': orders}
+	return render(request, 'adminorders.html', context)
+
+def acceptorder(request, order_id):
+	order=OrderModel.objects.filter(id=order_id)[0]
+	order.status="accepted"
+	order.save()
+	return redirect('adminorders')
+
+
+def declineorder(request, order_id):
+	order=OrderModel.objects.filter(id=order_id)[0]
+	order.status="declined"
+	order.save()
+	return redirect('adminorders')
