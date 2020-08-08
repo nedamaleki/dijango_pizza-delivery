@@ -6,7 +6,7 @@ class AdminModel(models.Model):
 
 	def __str__(self):
 		return self.username +" | "+ self.password
-
+	
 class PizzaModel(models.Model):
 	name = models.CharField(max_length = 20)
 	price = models.CharField(max_length = 20)
@@ -26,6 +26,9 @@ class OrderModel(models.Model):
 	address = models.CharField(max_length=20)
 	phoneno = models.CharField(max_length=20)
 	ordereditems = models.CharField(max_length=40)
+	status = models.CharField(max_length=10, default='pending')
 	
 	def __str__(self):
-		return self.username +" | "+ self.address +" | "+ self.phoneno +" | "+ self.ordereditems	
+		return self.username +" | "+ self.address +" | "+ self.phoneno +" | "+ self.ordereditems + "|" + self.status
+	# def __str__(self):
+	# 	return self.username +" | "+ self.address +" | "+ self.phoneno +" | "+ self.ordereditems	

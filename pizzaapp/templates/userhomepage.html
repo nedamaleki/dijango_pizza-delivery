@@ -4,6 +4,7 @@
 
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand">Welcome {{username}}</a>
+  <a class="nav-item" style="color:white; text-decoration: none" href="{% url 'userorders' %}"> My Orders </a>
   <a class="btn btn-danger" href="{% url 'userlogout' %}"> logout </a>
 </nav>
 
@@ -33,7 +34,7 @@
 					<td scope="row"> {{ forloop.counter }} </td>
 					<td scope="row"> {{pizza.name}} </td>
 					<td> ${{pizza.price}}  </td>
-					<td> <input type="number" name="{{pizza.id}}" style="width:60px"> </td>
+					<td> <input type="number" min="0" value="0" name="{{pizza.id}}" style="width:60px"> </td>
 				</tr>
 			{% endfor %}
 			{% endif %}

@@ -88,6 +88,8 @@ def authenticateuser (request):
 		return redirect ('userloginpage')
 
 def userhomepageview(request):
+	if not request.user.is_authenticated:
+		return redirect('userloginpage')
 
 	username = request.user.username 
 	pizzas = PizzaModel.objects.all()
@@ -99,6 +101,9 @@ def userlogout(request):
 	return redirect('userloginpage')
 
 def placeorder(request):
+	if not request.user.is_authenticated:
+		return redirect('userloginpage')
+
 	username = request.user.username
 	address = request.POST['address']
 	phoneno = CustomerModel.objects.filter(userid=request.user.id)[0].phoneno
@@ -116,10 +121,15 @@ def placeorder(request):
 		print(quantity)
 
 		if str(quantity)!="0" and str(quantity)!=" ":
-			ordereditems = ordereditems + "name: "+ name + " " + "price: "+ price + " " + "quantity:" + quantity+ "      "
+			ordereditems = ordereditems + "name: "+ name + " " + "price: "+ str(int(quantity)*int(price)) + " " + "quantity: " + quantity+ "      "
 
 	print(ordereditems)
 
 	OrderModel(username=username, address=address, phoneno=phoneno, ordereditems=ordereditems).save()
 	messages.add_message(request, messages.ERROR, "Order successfully Placed")
 	return redirect('userhomepage')
+
+def userorders(request):
+	orders=OrderModel.objects.filter(username=request.user.username)
+	context={'userorders': orders}
+	return render(request, 'userorders.html', context)

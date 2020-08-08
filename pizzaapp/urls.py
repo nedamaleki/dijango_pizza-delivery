@@ -16,6 +16,8 @@ urlpatterns = [
 		path('userhomepage/', views.userhomepageview, name='userhomepage'),
 		path ('userlogout/', views.userlogout, name='userlogout'),
 		path ('placeorder/', views.placeorder, name='placeorder'),
+		path ('userorders/', views.userorders, name='userorders'),
+
 
 
 
